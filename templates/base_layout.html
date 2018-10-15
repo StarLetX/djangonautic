@@ -1,0 +1,40 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block title %}
+			<title> Djangonautic </title>
+		{% endblock %}
+
+		<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+	</head>
+	<body>
+		<header class="wrapper">
+			<h1><a href="{% url 'home' %}"><img src="{% static 'logo.png' %}"/></a></h1>
+			<nav>
+				<ul>
+					{% if user.is_authenticated %}
+					<li>
+						<form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+						{% csrf_token %}
+						<button type="submit"> Logout </button>
+						</form>
+					</li>
+
+					<li> <a href="{% url 'articles:create' %}" class="highlight"> New Article </a></li>
+					{% else %}
+					<li> <a href="{% url 'accounts:login' %}"> Login </a></li>
+					<li> <a href="{% url 'accounts:signup' %}"> signup </a></li>
+					<li> <a href="{% url 'about' %}"> About Us </a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</header>
+		<div class="wrapper">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>

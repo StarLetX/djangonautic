@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+
+
+{% block content %}
+<div class="create-article">
+<h2> Create your awesome article here </h2>
+
+<form class="site-form" method="post" action="{% url 'articles:create' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ form }}  <!-- you  can also use {{ form.as_p } to display the form fields in paragraphs-->
+	<button type="submit"> Create </button>
+</form>
+</div>
+{% endblock %}
